@@ -33,7 +33,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -60,10 +60,39 @@
             font-weight: 400;
         }
 
-        .controls {
-            padding: 30px;
+        .tabs {
+            display: flex;
             background: #f8f9fa;
             border-bottom: 3px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab.active {
+            background: white;
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .control-group {
@@ -110,7 +139,7 @@
             letter-spacing: 0.5px;
         }
 
-        button:hover {
+        button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
@@ -125,12 +154,11 @@
             outline: 3px solid #667eea;
             outline-offset: 2px;
         }
-
-        .status {
+.status {
             padding: 20px 30px;
             background: #fff3cd;
             border-left: 5px solid #ffc107;
-            margin: 20px 30px;
+            margin: 20px 0;
             border-radius: 8px;
             display: none;
         }
@@ -149,13 +177,14 @@
             border-color: #dc3545;
         }
 
-        .results {
-            padding: 30px;
+        .status.info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -178,6 +207,80 @@
             font-size: 1.1em;
             opacity: 0.9;
             font-weight: 400;
+        }
+
+        .stat-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-section h3 {
+            margin-bottom: 15px;
+            color: #1e3c72;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .stat-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stat-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-list li:last-child {
+            border-bottom: none;
+        }
+
+        .stat-list .name {
+            font-weight: 600;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-list .value {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .stat-list .detail {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
         }
 
         table {
@@ -208,7 +311,7 @@
             letter-spacing: 0.5px;
         }
 
-        tr:hover {
+        tbody tr:hover {
             background: #f8f9fa;
         }
 
@@ -230,11 +333,6 @@
             color: #333;
         }
 
-        .badge-danger {
-            background: #dc3545;
-            color: white;
-        }
-
         .question-link {
             color: #667eea;
             text-decoration: none;
@@ -243,26 +341,6 @@
 
         .question-link:hover {
             text-decoration: underline;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .filters {
@@ -278,34 +356,48 @@
             gap: 15px;
         }
 
-        .export-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 8px;
-        }
-
         h2, h3 {
             font-weight: 600;
             margin-bottom: 15px;
         }
 
-        .warning-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
+        .info-box {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
-        .warning-box h3 {
-            color: #856404;
+        .info-box h3 {
+            color: #0c5460;
             margin-bottom: 10px;
         }
 
-        .warning-box p {
-            color: #856404;
+        .info-box p, .info-box ul {
+            color: #0c5460;
             line-height: 1.6;
+        }
+
+        .info-box ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .info-box a {
+            color: #0056b3;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 3px solid #e9ecef;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -316,111 +408,171 @@
             <p class="subtitle">Handicap - Assemblée Nationale & Sénat (2017-2025)</p>
         </header>
 
-        <div class="controls">
-            <div class="warning-box">
-                <h3>Important : Limitation de cet outil</h3>
-                <p><strong>Cet outil fournit les RÉFÉRENCES des questions</strong> (numéro, date, auteur, thème, lien). Pour accéder au <strong>texte complet des questions et réponses</strong>, vous devrez cliquer sur chaque lien individuellement. <strong>Note :</strong> L'extraction des thèmes prend un peu plus de temps car l'outil visite chaque page de question pour récupérer cette information.</p>
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('import')">Import de données</div>
+            <div class="tab" onclick="switchTab('stats')">Statistiques</div>
+            <div class="tab" onclick="switchTab('resultats')">Résultats détaillés</div>
+        </div>
+<!-- ONGLET IMPORT -->
+        <div id="tab-import" class="tab-content active">
+            <div class="info-box">
+                <h3>Comment utiliser cet outil</h3>
+                <p><strong>Téléchargez les fichiers Open Data officiels de l'Assemblée Nationale :</strong></p>
+                <ul>
+                    <li><a href="https://data.assemblee-nationale.fr/static/openData/repository/16/questions/questions_ecrites/Questions_ecrites.json.zip" target="_blank">16e législature (2022-2024)</a> - Décompressez le ZIP pour obtenir le fichier JSON</li>
+                    <li><a href="https://data.assemblee-nationale.fr/static/openData/repository/15/questions/questions_ecrites/Questions_ecrites.json.zip" target="_blank">15e législature (2017-2022)</a> - Décompressez le ZIP pour obtenir le fichier JSON</li>
+                </ul>
+                <p><strong>Ensuite :</strong> Importez le fichier JSON ci-dessous. L'outil extraira automatiquement toutes les questions sur le handicap avec le texte complet des questions et réponses, les groupes politiques, les statuts, etc.</p>
+            </div>
+
+            <div class="control-group">
+                <label for="fileInput">Importer le fichier JSON (décompressé) :</label>
+                <input type="file" id="fileInput" accept=".json" aria-describedby="file-help">
+                <small id="file-help">Sélectionnez le fichier Questions_ecrites.json décompressé</small>
             </div>
 
             <div class="control-group">
                 <label for="keywords">Mots-clés à rechercher (séparés par des virgules) :</label>
-                <input type="text" id="keywords" value="handicap,handicapé,handicapée,AAH,MDPH,PCH,RQTH,ESAT,IME,AESH,autisme,autiste" placeholder="handicap, AAH, MDPH..." aria-describedby="keywords-help">
-                <small id="keywords-help">Entrez plusieurs mots-clés séparés par des virgules pour élargir la recherche</small>
-            </div>
-
-            <div class="control-group">
-                <label for="dateDebut">Date de début :</label>
-                <input type="date" id="dateDebut" value="2017-06-01" aria-describedby="date-help">
-            </div>
-
-            <div class="control-group">
-                <label for="dateFin">Date de fin :</label>
-                <input type="date" id="dateFin" aria-describedby="date-help">
-                <small id="date-help">Période de recherche des questions publiées</small>
-            </div>
-
-            <div class="control-group">
-                <label for="assemblee">Assemblée :</label>
-                <select id="assemblee" aria-describedby="assemblee-help">
-                    <option value="toutes">Les deux assemblées</option>
-                    <option value="an">Assemblée Nationale uniquement</option>
-                    <option value="senat">Sénat uniquement</option>
-                </select>
-                <small id="assemblee-help">Choisissez quelle(s) assemblée(s) interroger</small>
+                <input type="text" id="keywords" value="handicap,handicapé,handicapée,AAH,MDPH,PCH,RQTH,ESAT,IME,AESH,autisme,autiste,handicapés" placeholder="handicap, AAH, MDPH...">
+                <small>L'outil cherchera ces mots-clés dans le texte des questions, des réponses et des rubriques</small>
             </div>
 
             <div class="btn-group">
-                <button onclick="lancerExtraction()" id="btnExtract" aria-label="Lancer l'extraction des questions parlementaires">Lancer l'extraction</button>
-                <button onclick="exporterCSV()" id="btnCSV" disabled aria-label="Exporter les résultats en format CSV">Exporter en CSV</button>
-                <button onclick="exporterExcel()" id="btnExcel" disabled aria-label="Exporter les résultats en format Excel">Exporter en Excel</button>
+                <button onclick="traiterFichierJSON()" id="btnProcess">Analyser le fichier</button>
+                <button onclick="exporterCSV()" id="btnCSV" disabled>Exporter en CSV</button>
+                <button onclick="exporterExcel()" id="btnExcel" disabled>Exporter en Excel</button>
+            </div>
+
+            <div id="status" class="status" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- ONGLET STATISTIQUES -->
+        <div id="tab-stats" class="tab-content">
+            <h2>Statistiques globales</h2>
+            <div class="stats" id="statsContainer">
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Aucune donnée</div>
+                </div>
+            </div>
+
+            <div id="advancedStats" style="display:none;">
+                <div class="stat-section">
+                    <h3>Questions par groupe politique</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Nombre de questions posées et nombre de réponses reçues par groupe politique</p>
+                    <ul class="stat-list" id="statsByGroupe"></ul>
+                </div>
+
+                <div class="stat-section">
+                    <h3>Taux de réponse par groupe politique</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Pourcentage de questions ayant reçu une réponse du gouvernement par groupe</p>
+                    <ul class="stat-list" id="tauxReponseGroupe"></ul>
+                </div>
+
+                <div class="stat-section">
+                    <h3>Questions par thématique</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Répartition des questions selon les rubriques officielles</p>
+                    <ul class="stat-list" id="statsByTheme"></ul>
+                </div>
+
+                <div class="stat-section">
+                    <h3>Top 15 des auteurs les plus actifs</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Députés/Sénateurs ayant posé le plus de questions sur le handicap</p>
+                    <ul class="stat-list" id="statsByAuteur"></ul>
+                </div>
+
+                <div class="stat-section">
+                    <h3>Évolution par année</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Nombre de questions posées et répondues par année</p>
+                    <ul class="stat-list" id="statsByAnnee"></ul>
+                </div>
             </div>
         </div>
 
-        <div id="status" class="status" role="status" aria-live="polite"></div>
-
-        <div class="results" id="results" style="display:none;">
-            <h2>Statistiques</h2>
-            <div class="stats" id="statsContainer" role="region" aria-label="Statistiques des questions trouvées"></div>
-
+        <!-- ONGLET RÉSULTATS -->
+        <div id="tab-resultats" class="tab-content">
             <div class="filters">
                 <h3>Filtrer les résultats :</h3>
                 <div class="filter-row">
                     <div>
                         <label for="filterStatut">Statut :</label>
-                        <select id="filterStatut" onchange="appliquerFiltres()" aria-label="Filtrer par statut de la question">
+                        <select id="filterStatut" onchange="appliquerFiltres()">
                             <option value="">Tous</option>
                             <option value="Répondu">Répondu</option>
                             <option value="En attente">En attente</option>
                         </select>
                     </div>
                     <div>
-                        <label for="filterAssemblee">Assemblée :</label>
-                        <select id="filterAssemblee" onchange="appliquerFiltres()" aria-label="Filtrer par assemblée">
+                        <label for="filterAnnee">Année :</label>
+                        <select id="filterAnnee" onchange="appliquerFiltres()">
                             <option value="">Toutes</option>
-                            <option value="AN">Assemblée Nationale</option>
-                            <option value="Sénat">Sénat</option>
                         </select>
                     </div>
                     <div>
-                        <label for="filterAnnee">Année :</label>
-                        <select id="filterAnnee" onchange="appliquerFiltres()" aria-label="Filtrer par année de publication">
+                        <label for="filterGroupe">Groupe politique :</label>
+                        <select id="filterGroupe" onchange="appliquerFiltres()">
+                            <option value="">Tous</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filterTheme">Thématique :</label>
+                        <select id="filterTheme" onchange="appliquerFiltres()">
                             <option value="">Toutes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filterAuteur">Auteur :</label>
+                        <select id="filterAuteur" onchange="appliquerFiltres()">
+                            <option value="">Tous</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <h2>Questions trouvées</h2>
+            <h2>Questions trouvées (<span id="questionCount">0</span>)</h2>
             <div style="overflow-x: auto;">
-                <table id="questionsTable" role="table" aria-label="Tableau des questions parlementaires sur le handicap">
+                <table id="questionsTable">
                     <thead>
                         <tr>
-                            <th scope="col">Assemblée</th>
                             <th scope="col">Numéro</th>
                             <th scope="col">Date</th>
                             <th scope="col">Auteur</th>
+                            <th scope="col">Groupe</th>
                             <th scope="col">Thème</th>
                             <th scope="col">Question</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Lien</th>
                         </tr>
                     </thead>
-                    <tbody id="questionsBody"></tbody>
+                    <tbody id="questionsBody">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
+                                Importez d'abord un fichier de données dans l'onglet "Import de données"
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <footer style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 3px solid #e9ecef; margin-top: 40px;">
-            <p style="color: #666; font-size: 0.9em;">Propulsé par Ti Racoon</p>
+        <footer>
+            <p>Propulsé par Ti Racoon</p>
         </footer>
     </div>
-
-    <script>
+<script>
         let toutesLesQuestions = [];
         let questionsFiltrees = [];
 
-        // Initialiser la date du jour
-        document.getElementById('dateFin').value = new Date().toISOString().split('T')[0];
+        // Gestion des onglets
+        function switchTab(tabName) {
+            // Masquer tous les onglets
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Afficher l'onglet sélectionné
+            document.querySelector(`.tab:nth-child(${tabName === 'import' ? 1 : tabName === 'stats' ? 2 : 3})`).classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
 
         function afficherStatus(message, type = 'info') {
             const statusDiv = document.getElementById('status');
@@ -428,184 +580,245 @@
             statusDiv.className = 'status show ' + type;
         }
 
-        async function lancerExtraction() {
-            const btn = document.getElementById('btnExtract');
-            btn.disabled = true;
-            btn.textContent = 'Extraction en cours...';
+        async function traiterFichierJSON() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
             
-            toutesLesQuestions = [];
-            document.getElementById('results').style.display = 'none';
-            
-            afficherStatus('Recherche de questions parlementaires via les API NosDéputés.fr et NosSénateurs.fr...', 'info');
+            if (!file) {
+                afficherStatus('Veuillez sélectionner un fichier JSON.', 'error');
+                return;
+            }
+
+            afficherStatus('Lecture du fichier en cours...', 'info');
 
             try {
-                const keywords = document.getElementById('keywords').value.split(',').map(k => k.trim());
-                const dateDebut = document.getElementById('dateDebut').value.replace(/-/g, '');
-                const dateFin = document.getElementById('dateFin').value.replace(/-/g, '');
-                const assemblee = document.getElementById('assemblee').value;
-
-                // Extraction pour chaque mot-clé
-                for (const keyword of keywords) {
-                    if (assemblee === 'toutes' || assemblee === 'an') {
-                        await extraireNosDePutes(keyword, dateDebut, dateFin);
+                const text = await file.text();
+                const data = JSON.parse(text);
+                
+                afficherStatus('Analyse des questions en cours... Cela peut prendre quelques secondes.', 'info');
+                
+                toutesLesQuestions = [];
+                const keywords = document.getElementById('keywords').value.toLowerCase().split(',').map(k => k.trim());
+                
+                // Parser selon le format Open Data Assemblée Nationale
+                const questions = data.questions || data;
+                
+                let compteur = 0;
+                for (const q of questions) {
+                    const texteQuestion = (q.texteQuestion || '').toLowerCase();
+                    const texteReponse = (q.texteReponse || '').toLowerCase();
+                    const rubrique = (q.rubrique || '').toLowerCase();
+                    
+                    // Vérifier si la question contient un des mots-clés
+                    const contientMotCle = keywords.some(kw => 
+                        texteQuestion.includes(kw) || 
+                        texteReponse.includes(kw) || 
+                        rubrique.includes(kw)
+                    );
+                    
+                    if (contientMotCle) {
+                        compteur++;
+                        
+                        // Extraire le nom du député
+                        let nomDepute = 'Non spécifié';
+                        let groupeDepute = 'Non spécifié';
+                        
+                        if (q.auteur) {
+                            if (typeof q.auteur === 'string') {
+                                nomDepute = q.auteur;
+                            } else if (q.auteur.nom) {
+                                nomDepute = q.auteur.nom;
+                                groupeDepute = q.auteur.groupe || 'Non spécifié';
+                            }
+                        }
+                        
+                        // Extraire le groupe si disponible ailleurs
+                        if (groupeDepute === 'Non spécifié' && q.groupe) {
+                            groupeDepute = q.groupe;
+                        }
+                        
+                        // Déterminer le statut
+                        const aReponse = q.texteReponse && q.texteReponse.trim().length > 0;
+                        
+                        toutesLesQuestions.push({
+                            assemblee: 'AN',
+                            numero: q.numero || q.numQuestion || 'N/A',
+                            date: q.datePublication || q.dateQuestion || '',
+                            auteur: nomDepute,
+                            groupe: groupeDepute,
+                            theme: q.rubrique || q.theme || 'Non spécifié',
+                            question: (q.texteQuestion || '').substring(0, 200),
+                            questionComplete: q.texteQuestion || '',
+                            reponseComplete: q.texteReponse || '',
+                            statut: aReponse ? 'Répondu' : 'En attente',
+                            lien: q.url || `https://questions.assemblee-nationale.fr/q${q.legislature || '16'}/${q.numero}QE.htm`
+                        });
                     }
-                    if (assemblee === 'toutes' || assemblee === 'senat') {
-                        await extraireNosSenateurs(keyword, dateDebut, dateFin);
+                    
+                    // Afficher la progression tous les 1000 éléments
+                    if (compteur % 1000 === 0 && compteur > 0) {
+                        afficherStatus(`Analyse en cours... ${compteur} questions trouvées`, 'info');
+                        await new Promise(resolve => setTimeout(resolve, 10)); // Laisser le navigateur respirer
                     }
                 }
-
+                
                 if (toutesLesQuestions.length === 0) {
-                    afficherStatus('Aucune question trouvée avec les critères sélectionnés.', 'warning');
+                    afficherStatus('Aucune question trouvée avec les mots-clés sélectionnés.', 'warning');
                 } else {
-                    afficherStatus(`Extraction terminée. ${toutesLesQuestions.length} questions trouvées.`, 'success');
+                    afficherStatus(`Analyse terminée. ${toutesLesQuestions.length} questions trouvées sur le handicap.`, 'success');
                     afficherResultats();
+                    genererStatistiquesAvancees();
                     document.getElementById('btnCSV').disabled = false;
                     document.getElementById('btnExcel').disabled = false;
+                    
+                    // Basculer automatiquement vers l'onglet statistiques
+                    setTimeout(() => switchTab('stats'), 1000);
                 }
             } catch (error) {
-                afficherStatus('Erreur lors de l\'extraction : ' + error.message, 'error');
+                afficherStatus('Erreur lors de la lecture du fichier : ' + error.message, 'error');
                 console.error(error);
             }
-
-            btn.disabled = false;
-            btn.textContent = 'Lancer l\'extraction';
         }
 
-        async function extraireNosDePutes(keyword, dateDebut, dateFin) {
-            try {
-                const url = `https://www.nosdeputes.fr/recherche/${encodeURIComponent(keyword)}?object_name=QuestionEcrite&date=${dateDebut},${dateFin}`;
-                
-                afficherStatus(`Recherche "${keyword}" sur NosDéputés.fr...`, 'info');
-                
-                const response = await fetch(url);
-                const html = await response.text();
-                
-                // Parser le HTML pour extraire les questions
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const items = doc.querySelectorAll('.search-result');
-                
-                for (const item of items) {
-                    const lienElement = item.querySelector('a');
-                    if (!lienElement) continue;
-                    
-                    const lien = 'https://www.nosdeputes.fr' + lienElement.getAttribute('href');
-                    const titre = lienElement.textContent.trim();
-                    const meta = item.querySelector('.search-result-info');
-                    
-                    // Récupérer le thème depuis la page de la question
-                    const theme = await recupererThemeQuestion(lien);
-                    
-                    toutesLesQuestions.push({
-                        assemblee: 'AN',
-                        numero: extractNumero(lien),
-                        date: extractDate(meta ? meta.textContent : ''),
-                        auteur: extractAuteur(meta ? meta.textContent : ''),
-                        theme: theme || keyword,
-                        question: titre,
-                        statut: 'Répondu',
-                        lien: lien
-                    });
+        function genererStatistiquesAvancees() {
+            // Afficher la section des stats avancées
+            document.getElementById('advancedStats').style.display = 'block';
+            
+            // Stats par groupe politique
+            const parGroupe = {};
+            toutesLesQuestions.forEach(q => {
+                if (!parGroupe[q.groupe]) {
+                    parGroupe[q.groupe] = { total: 0, repondues: 0 };
                 }
-            } catch (error) {
-                console.error(`Erreur NosDéputés pour "${keyword}":`, error);
-            }
-        }
-        
-        async function recupererThemeQuestion(url) {
-            try {
-                const response = await fetch(url);
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // Chercher le thème dans différents emplacements possibles
-                const themeElement = doc.querySelector('.tags a, .rubrique, h2');
-                if (themeElement) {
-                    return themeElement.textContent.trim();
+                parGroupe[q.groupe].total++;
+                if (q.statut === 'Répondu') {
+                    parGroupe[q.groupe].repondues++;
                 }
-                
-                // Sinon chercher dans le contenu
-                const content = doc.querySelector('.content, .question-content');
-                if (content) {
-                    const text = content.textContent;
-                    const match = text.match(/Thème\s*:\s*([^\n]+)|Rubrique\s*:\s*([^\n]+)/i);
-                    if (match) {
-                        return (match[1] || match[2]).trim();
-                    }
+            });
+
+            const statsByGroupe = document.getElementById('statsByGroupe');
+            statsByGroupe.innerHTML = '';
+            Object.entries(parGroupe)
+                .sort((a, b) => b[1].total - a[1].total)
+                .forEach(([groupe, stats]) => {
+                    const tauxReponse = ((stats.repondues / stats.total) * 100).toFixed(1);
+                    statsByGroupe.innerHTML += `
+                        <li>
+                            <span class="name">${groupe}</span>
+                            <span class="detail">${stats.repondues} réponses / ${stats.total} questions</span>
+                            <span class="value">${stats.total}</span>
+                        </li>
+                    `;
+                });
+
+            // Taux de réponse par groupe
+            const tauxReponseGroupe = document.getElementById('tauxReponseGroupe');
+            tauxReponseGroupe.innerHTML = '';
+            Object.entries(parGroupe)
+                .sort((a, b) => (b[1].repondues/b[1].total) - (a[1].repondues/a[1].total))
+                .forEach(([groupe, stats]) => {
+                    const taux = ((stats.repondues / stats.total) * 100).toFixed(1);
+                    const pourcentage = (stats.repondues / stats.total) * 100;
+                    tauxReponseGroupe.innerHTML += `
+                        <li>
+                            <span class="name">${groupe}</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${pourcentage}%">${taux}%</div>
+                            </div>
+                        </li>
+                    `;
+                });
+// Stats par thématique
+            const parTheme = {};
+            toutesLesQuestions.forEach(q => {
+                parTheme[q.theme] = (parTheme[q.theme] || 0) + 1;
+            });
+
+            const statsByTheme = document.getElementById('statsByTheme');
+            statsByTheme.innerHTML = '';
+            Object.entries(parTheme)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 20)
+                .forEach(([theme, count]) => {
+                    const pourcentage = ((count / toutesLesQuestions.length) * 100).toFixed(1);
+                    statsByTheme.innerHTML += `
+                        <li>
+                            <span class="name">${theme}</span>
+                            <span class="detail">${pourcentage}% du total</span>
+                            <span class="value">${count}</span>
+                        </li>
+                    `;
+                });
+
+            // Stats par auteur
+            const parAuteur = {};
+            toutesLesQuestions.forEach(q => {
+                if (!parAuteur[q.auteur]) {
+                    parAuteur[q.auteur] = { total: 0, repondues: 0, groupe: q.groupe };
                 }
-                
-                return null;
-            } catch (error) {
-                console.error('Erreur récupération thème:', error);
-                return null;
-            }
-        }
-
-        async function extraireNosSenateurs(keyword, dateDebut, dateFin) {
-            try {
-                const url = `https://www.nossenateurs.fr/recherche/${encodeURIComponent(keyword)}?object_name=QuestionEcrite&date=${dateDebut},${dateFin}`;
-                
-                afficherStatus(`Recherche "${keyword}" sur NosSénateurs.fr...`, 'info');
-                
-                const response = await fetch(url);
-                const html = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const items = doc.querySelectorAll('.search-result');
-                
-                for (const item of items) {
-                    const lienElement = item.querySelector('a');
-                    if (!lienElement) continue;
-                    
-                    const lien = 'https://www.nossenateurs.fr' + lienElement.getAttribute('href');
-                    const titre = lienElement.textContent.trim();
-                    const meta = item.querySelector('.search-result-info');
-                    
-                    // Récupérer le thème depuis la page de la question
-                    const theme = await recupererThemeQuestion(lien);
-                    
-                    toutesLesQuestions.push({
-                        assemblee: 'Sénat',
-                        numero: extractNumero(lien),
-                        date: extractDate(meta ? meta.textContent : ''),
-                        auteur: extractAuteur(meta ? meta.textContent : ''),
-                        theme: theme || keyword,
-                        question: titre,
-                        statut: 'Répondu',
-                        lien: lien
-                    });
+                parAuteur[q.auteur].total++;
+                if (q.statut === 'Répondu') {
+                    parAuteur[q.auteur].repondues++;
                 }
-            } catch (error) {
-                console.error(`Erreur NosSénateurs pour "${keyword}":`, error);
-            }
-        }
+            });
 
-        function extractNumero(lien) {
-            const match = lien.match(/(\d+)QE/);
-            return match ? match[1] : 'N/A';
-        }
+            const statsByAuteur = document.getElementById('statsByAuteur');
+            statsByAuteur.innerHTML = '';
+            Object.entries(parAuteur)
+                .sort((a, b) => b[1].total - a[1].total)
+                .slice(0, 15)
+                .forEach(([auteur, stats]) => {
+                    const tauxReponse = ((stats.repondues / stats.total) * 100).toFixed(1);
+                    statsByAuteur.innerHTML += `
+                        <li>
+                            <span class="name">${auteur} (${stats.groupe})</span>
+                            <span class="detail">${stats.repondues} réponses / ${stats.total} questions (${tauxReponse}%)</span>
+                            <span class="value">${stats.total}</span>
+                        </li>
+                    `;
+                });
 
-        function extractDate(texte) {
-            const match = texte.match(/(\d{2})\/(\d{2})\/(\d{4})/);
-            return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
-        }
+            // Stats par année
+            const parAnnee = {};
+            toutesLesQuestions.forEach(q => {
+                const annee = q.date.substring(0, 4);
+                if (!parAnnee[annee]) {
+                    parAnnee[annee] = { total: 0, repondues: 0 };
+                }
+                parAnnee[annee].total++;
+                if (q.statut === 'Répondu') {
+                    parAnnee[annee].repondues++;
+                }
+            });
 
-        function extractAuteur(texte) {
-            const match = texte.match(/par\s+([^,]+)/i);
-            return match ? match[1].trim() : '';
+            const statsByAnnee = document.getElementById('statsByAnnee');
+            statsByAnnee.innerHTML = '';
+            Object.entries(parAnnee)
+                .sort((a, b) => a[0].localeCompare(b[0]))
+                .forEach(([annee, stats]) => {
+                    const tauxReponse = ((stats.repondues / stats.total) * 100).toFixed(1);
+                    statsByAnnee.innerHTML += `
+                        <li>
+                            <span class="name">${annee}</span>
+                            <span class="detail">${stats.repondues} réponses / ${stats.total} questions</span>
+                            <span class="value">${tauxReponse}%</span>
+                        </li>
+                    `;
+                });
         }
 
         function afficherResultats() {
             questionsFiltrees = [...toutesLesQuestions];
             
-            // Statistiques
+            // Statistiques globales
             const totalQuestions = toutesLesQuestions.length;
             const avecReponse = toutesLesQuestions.filter(q => q.statut === 'Répondu').length;
             const sansReponse = totalQuestions - avecReponse;
-            const questionsAN = toutesLesQuestions.filter(q => q.assemblee === 'AN').length;
-            const questionsSénat = toutesLesQuestions.filter(q => q.assemblee === 'Sénat').length;
+            const tauxReponseGlobal = totalQuestions > 0 ? ((avecReponse / totalQuestions) * 100).toFixed(1) : 0;
+
+            // Compter le nombre de groupes et d'auteurs uniques
+            const groupesUniques = [...new Set(toutesLesQuestions.map(q => q.groupe))].length;
+            const auteursUniques = [...new Set(toutesLesQuestions.map(q => q.auteur))].length;
 
             const statsHTML = `
                 <div class="stat-card">
@@ -621,58 +834,99 @@
                     <div class="stat-label">Sans réponse</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${questionsAN}</div>
-                    <div class="stat-label">Assemblée Nationale</div>
+                    <div class="stat-number">${tauxReponseGlobal}%</div>
+                    <div class="stat-label">Taux de réponse</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${questionsSénat}</div>
-                    <div class="stat-label">Sénat</div>
+                    <div class="stat-number">${auteursUniques}</div>
+                    <div class="stat-label">Auteurs différents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${groupesUniques}</div>
+                    <div class="stat-label">Groupes politiques</div>
                 </div>
             `;
 
             document.getElementById('statsContainer').innerHTML = statsHTML;
 
-            // Peupler le filtre année
-            const annees = [...new Set(toutesLesQuestions.map(q => q.date.substring(0, 4)))].sort().reverse();
+            // Peupler les filtres
+            const annees = [...new Set(toutesLesQuestions.map(q => q.date.substring(0, 4)))].filter(a => a).sort().reverse();
             const filterAnnee = document.getElementById('filterAnnee');
             filterAnnee.innerHTML = '<option value="">Toutes</option>';
             annees.forEach(annee => {
                 filterAnnee.innerHTML += `<option value="${annee}">${annee}</option>`;
             });
 
+            const groupes = [...new Set(toutesLesQuestions.map(q => q.groupe))].sort();
+            const filterGroupe = document.getElementById('filterGroupe');
+            filterGroupe.innerHTML = '<option value="">Tous</option>';
+            groupes.forEach(groupe => {
+                filterGroupe.innerHTML += `<option value="${groupe}">${groupe}</option>`;
+            });
+
+            const themes = [...new Set(toutesLesQuestions.map(q => q.theme))].sort();
+            const filterTheme = document.getElementById('filterTheme');
+            filterTheme.innerHTML = '<option value="">Toutes</option>';
+            themes.forEach(theme => {
+                filterTheme.innerHTML += `<option value="${theme}">${theme}</option>`;
+            });
+
+            const auteurs = [...new Set(toutesLesQuestions.map(q => q.auteur))].sort();
+            const filterAuteur = document.getElementById('filterAuteur');
+            filterAuteur.innerHTML = '<option value="">Tous</option>';
+            auteurs.forEach(auteur => {
+                filterAuteur.innerHTML += `<option value="${auteur}">${auteur}</option>`;
+            });
+
             afficherTableau();
-            document.getElementById('results').style.display = 'block';
         }
 
         function afficherTableau() {
             const tbody = document.getElementById('questionsBody');
             tbody.innerHTML = '';
 
+            if (questionsFiltrees.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
+                            Aucune question ne correspond aux filtres sélectionnés
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('questionCount').textContent = '0';
+                return;
+            }
+
             questionsFiltrees.forEach(q => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${q.assemblee}</td>
                     <td>${q.numero}</td>
                     <td>${q.date}</td>
                     <td>${q.auteur}</td>
+                    <td>${q.groupe}</td>
                     <td>${q.theme}</td>
-                    <td>${q.question.substring(0, 100)}...</td>
+                    <td title="${q.question}">${q.question.substring(0, 100)}...</td>
                     <td><span class="badge ${q.statut === 'Répondu' ? 'badge-success' : 'badge-warning'}">${q.statut}</span></td>
                     <td><a href="${q.lien}" target="_blank" class="question-link" aria-label="Voir la question complète numéro ${q.numero}">Voir</a></td>
                 `;
                 tbody.appendChild(tr);
             });
-        }
 
-        function appliquerFiltres() {
+            document.getElementById('questionCount').textContent = questionsFiltrees.length;
+        }
+function appliquerFiltres() {
             const filterStatut = document.getElementById('filterStatut').value;
-            const filterAssemblee = document.getElementById('filterAssemblee').value;
             const filterAnnee = document.getElementById('filterAnnee').value;
+            const filterGroupe = document.getElementById('filterGroupe').value;
+            const filterTheme = document.getElementById('filterTheme').value;
+            const filterAuteur = document.getElementById('filterAuteur').value;
 
             questionsFiltrees = toutesLesQuestions.filter(q => {
                 if (filterStatut && q.statut !== filterStatut) return false;
-                if (filterAssemblee && q.assemblee !== filterAssemblee) return false;
                 if (filterAnnee && !q.date.startsWith(filterAnnee)) return false;
+                if (filterGroupe && q.groupe !== filterGroupe) return false;
+                if (filterTheme && q.theme !== filterTheme) return false;
+                if (filterAuteur && q.auteur !== filterAuteur) return false;
                 return true;
             });
 
@@ -680,26 +934,106 @@
         }
 
         function exporterCSV() {
-            const csv = Papa.unparse(questionsFiltrees);
-            telechargerFichier(csv, 'questions_handicap.csv', 'text/csv');
+            const dataToExport = questionsFiltrees.map(q => ({
+                'Numéro': q.numero,
+                'Date': q.date,
+                'Auteur': q.auteur,
+                'Groupe politique': q.groupe,
+                'Thème': q.theme,
+                'Question (extrait)': q.question,
+                'Question complète': q.questionComplete || q.question,
+                'Réponse complète': q.reponseComplete || '',
+                'Statut': q.statut,
+                'Lien': q.lien
+            }));
+            
+            const csv = Papa.unparse(dataToExport);
+            telechargerFichier(csv, 'questions_handicap_' + new Date().toISOString().split('T')[0] + '.csv', 'text/csv;charset=utf-8;');
+            afficherStatus(`Fichier CSV exporté avec ${questionsFiltrees.length} questions.`, 'success');
         }
 
         function exporterExcel() {
-            const ws = XLSX.utils.json_to_sheet(questionsFiltrees);
+            const dataToExport = questionsFiltrees.map(q => ({
+                'Numéro': q.numero,
+                'Date': q.date,
+                'Auteur': q.auteur,
+                'Groupe politique': q.groupe,
+                'Thème': q.theme,
+                'Question (extrait)': q.question,
+                'Question complète': q.questionComplete || q.question,
+                'Réponse complète': q.reponseComplete || '',
+                'Statut': q.statut,
+                'Lien': q.lien
+            }));
+            
+            const ws = XLSX.utils.json_to_sheet(dataToExport);
+            
+            // Ajuster la largeur des colonnes
+            const colWidths = [
+                { wch: 10 },  // Numéro
+                { wch: 12 },  // Date
+                { wch: 25 },  // Auteur
+                { wch: 25 },  // Groupe
+                { wch: 30 },  // Thème
+                { wch: 40 },  // Question extrait
+                { wch: 80 },  // Question complète
+                { wch: 80 },  // Réponse complète
+                { wch: 12 },  // Statut
+                { wch: 50 }   // Lien
+            ];
+            ws['!cols'] = colWidths;
+            
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Questions');
-            XLSX.writeFile(wb, 'questions_handicap.xlsx');
+            
+            // Ajouter une feuille avec les statistiques
+            const statsData = [];
+            statsData.push({ 'Statistique': 'Total questions', 'Valeur': toutesLesQuestions.length });
+            statsData.push({ 'Statistique': 'Questions répondues', 'Valeur': toutesLesQuestions.filter(q => q.statut === 'Répondu').length });
+            statsData.push({ 'Statistique': 'Questions sans réponse', 'Valeur': toutesLesQuestions.filter(q => q.statut === 'En attente').length });
+            statsData.push({ 'Statistique': 'Taux de réponse', 'Valeur': ((toutesLesQuestions.filter(q => q.statut === 'Répondu').length / toutesLesQuestions.length) * 100).toFixed(1) + '%' });
+            statsData.push({ 'Statistique': '', 'Valeur': '' });
+            statsData.push({ 'Statistique': 'Par groupe politique', 'Valeur': '' });
+            
+            // Ajouter les stats par groupe
+            const parGroupe = {};
+            toutesLesQuestions.forEach(q => {
+                if (!parGroupe[q.groupe]) {
+                    parGroupe[q.groupe] = { total: 0, repondues: 0 };
+                }
+                parGroupe[q.groupe].total++;
+                if (q.statut === 'Répondu') {
+                    parGroupe[q.groupe].repondues++;
+                }
+            });
+            
+            Object.entries(parGroupe).sort((a, b) => b[1].total - a[1].total).forEach(([groupe, stats]) => {
+                statsData.push({ 
+                    'Statistique': groupe, 
+                    'Valeur': `${stats.total} questions (${stats.repondues} réponses, ${((stats.repondues/stats.total)*100).toFixed(1)}%)` 
+                });
+            });
+            
+            const wsStats = XLSX.utils.json_to_sheet(statsData);
+            XLSX.utils.book_append_sheet(wb, wsStats, 'Statistiques');
+            
+            XLSX.writeFile(wb, 'questions_handicap_' + new Date().toISOString().split('T')[0] + '.xlsx');
+            afficherStatus(`Fichier Excel exporté avec ${questionsFiltrees.length} questions et statistiques.`, 'success');
         }
 
         function telechargerFichier(contenu, nomFichier, type) {
-            const blob = new Blob([contenu], { type });
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + contenu], { type });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = nomFichier;
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
     </script>
 </body>
 </html>
+
